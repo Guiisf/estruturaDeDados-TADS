@@ -1,51 +1,40 @@
 package org.example;
 
-import java.util.Scanner;
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
+        JOptionPane.showMessageDialog(null, "Bem vindo ao sitema de coleta de sangue");
 
-        System.out.println("Bem vindo ao sitema de coleta de sangue");
-        System.out.println("");
         Laboratorio atendimento = new Laboratorio();
-        Scanner sc = new Scanner(System.in);
         boolean sair = false;
 
-        while(!sair) {
-            System.out.println("");
-            System.out.println("Escolha um numero");
-            System.out.println("1 - Pacinte novo");
-            System.out.println("2 - Chamar proximo da fila");
-            System.out.println("3 - Mostra fila preferencial");
-            System.out.println("4 - Mostra fila normal");
-            System.out.println("0 - Fechar laboratorio");
-            int escolha = sc.nextInt();
-            sc.nextLine();
-
-            switch (escolha){
-                case 1:
-                    System.out.println("Digite o nome do paciente");
-                    String nome = sc.nextLine();
-                    System.out.println("Ele(a) é preferencial ? (s/n)");
-                    boolean preferencial = sc.nextLine().equalsIgnoreCase("s");
+        while (!sair) {
+            String escolha = JOptionPane.showInputDialog(null,
+                    "Escolha uma opção:\n1 - Paciente novo\n2 - Chamar próximo da fila\n3 - Mostrar fila preferencial\n4 - Mostrar fila normal\n0 - Fechar laboratório");
+            switch (escolha) {
+                case "1":
+                    String nome = JOptionPane.showInputDialog(null, "Digite o nome do paciente");
+                    String preferencialInput = JOptionPane.showInputDialog(null, "Ele(a) é preferencial ? (s/n)");
+                    boolean preferencial = preferencialInput.equalsIgnoreCase("s");
                     atendimento.adiciona(nome, preferencial);
                     break;
-                case 2:
+                case "2":
                     atendimento.proximo();
                     break;
-                case 3:
+                case "3":
                     atendimento.contemPreferencial();
                     break;
-                case 4:
+                case "4":
                     atendimento.contemNormal();
                     break;
-                case 0:
+                case "0":
                     sair = true;
                     break;
                 default:
-                    System.out.println("Opção inválida.");
+                    JOptionPane.showMessageDialog(null, "Opção inválida.");
             }
         }
-        sc.close();
     }
+
 }
